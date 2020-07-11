@@ -3,7 +3,16 @@
 <meta name="viewport" content="width=device-width">
 </head>
 <body>
-	<pre><code><span class="call">print</span>(<span class="string">"hello world"</span>)</code></pre>
+	<pre><code><span class="keyword">func</span> alert(title: <span class="type">String</span>, message: <span class="type">String</span>, viewToAlert: <span class="type">UIViewController</span>, completion: <span class="keyword">@escaping</span> (<span class="type">UIAlertController</span>) -&gt; <span class="type">Void</span>) {
+    <span class="keyword">let</span> alertController = <span class="type">UIAlertController</span>(title: title, message: message, preferredStyle: <span class="type">UIAlertController</span>.<span class="type">Style</span>.<span class="property">alert</span>)
+    <span class="keyword">let</span> dismissControl = <span class="type">UIControl</span>()
+    dismissControl.<span class="property">frame</span> = alertController.<span class="property">view</span>.<span class="property">bounds</span>
+    alertController.<span class="property">view</span>.<span class="call">addSubview</span>(dismissControl)
+    viewToAlert.<span class="call">present</span>(alertController, animated: <span class="keyword">true</span>, completion: {
+        alertController.<span class="property">view</span>.<span class="property">superview</span>?.<span class="property">isUserInteractionEnabled</span> = <span class="keyword">true</span>
+        completion(alertController)
+    })
+}</code></pre>
 	<style>
 		pre{margin-bottom:1.5em;background-color:#1a1a1a;padding:16px 0;border-radius:16px}pre code{font-family:monospace;display:block;padding:0 20px;color:#a9bcbc;line-height:1.4em;font-size:.95em;overflow-x:auto;white-space:pre;-webkit-overflow-scrolling:touch}pre code .keyword{color:#e73289}pre code .type{color:#8281ca}pre code .call{color:#348fe5}pre code .property{color:#21ab9d}pre code .number{color:#db6f57}pre code .string{color:#fa641e}pre code .comment{color:#6b8a94}pre code .dotAccess{color:#92b300}pre code .preprocessing{color:#b68a00}
 		</style>
